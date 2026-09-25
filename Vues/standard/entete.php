@@ -1,2 +1,2 @@
 <?php
- echo '<header> <h1>Titre</h1></header>';
+ echo '<header> <h1>DATA ECLAIRAGE</h1></header>';
