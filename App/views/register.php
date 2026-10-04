@@ -5,7 +5,7 @@ require '../views/partials/header.php';
     <h1>Inscription</h1>
 
     <?php if ($succes): ?>
-        <p>Votre compte a été créé. <a href="login.php">Connectez-vous</a>.</p>
+        <p>Votre compte a été créé. <a href="/login">Connectez-vous</a>.</p>
     <?php else: ?>
         <?php if (!empty($erreurs)): ?>
             <ul>

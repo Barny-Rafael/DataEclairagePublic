@@ -1,10 +1,8 @@
 <?php
 // Page de connexion "classique" : même structure que register.php, avec le même code dupliqué.
-session_start();
-require '../src/Core/render.php';
-require '../config/db.php';     // $pdo est maintenant disponible
-require '../src/Model/User.php';
-require '../src/Model/UserRepository.php';
+
+use App\Model\UserRepository;
+
 // ... traitement ...
 $titre = 'Connexion';
 $repository = new UserRepository($pdo);

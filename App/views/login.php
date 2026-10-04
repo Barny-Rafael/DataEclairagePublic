@@ -20,6 +20,6 @@ require '../views/partials/header.php';
         <button type="submit">Se connecter</button>
     </form>
 
-    <p>Pas encore de compte ? <a href="register.php">Inscrivez-vous</a>.</p>
+    <p>Pas encore de compte ? <a href="/register">Inscrivez-vous</a>.</p>
 
 <?php require '../views/partials/footer.php'; ?>

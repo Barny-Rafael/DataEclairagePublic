@@ -1,4 +1,5 @@
 <?php
+
 function chargerEnv(string $chemin): void
 {
     if (!is_file($chemin)) {
