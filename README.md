@@ -6,4 +6,3 @@ Découverte d'un MVC pas à pas avec PHP
  2 - Routage simple et Exceptions
  
  3 - Modèles et connexion BDD (coming soon...)
- 
