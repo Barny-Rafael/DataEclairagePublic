@@ -1,10 +1,8 @@
 <?php
 // Page d'inscription "classique" : connexion à la base, validation, insertion et HTML au même endroit.
-session_start();
-require '../src/Core/render.php';
-require '../config/db.php';     // $pdo est maintenant disponible
-require '../src/Model/User.php';
-require '../src/Model/UserRepository.php';
+
+use App\Model\UserRepository;
+
 // ... traitement ...
 $titre = 'Inscription';
 $erreurs = [];
@@ -37,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insertion
     if (empty($erreurs)) {
-        $userRepository->create($email, $password);
+        $repository->create($email, $password);
         $succes = true;
     }
 }

@@ -6,11 +6,11 @@
 </head>
 <body>
     <nav>
-        <a href="index.php">Accueil</a>
+        <a href="/">Accueil</a>
         <?php if (!isset($utilisateur)): ?>
-            | <a href="login.php">Connexion</a>
-            | <a href="register.php">Inscription</a>
+            | <a href="/login">Connexion</a>
+            | <a href="/register">Inscription</a>
         <?php else: ?>
-            | <a href="index.php?action=logout">Déconnexion</a>
+            | <a href="/logout">Déconnexion</a>
         <?php endif; ?>
     </nav>
