@@ -12,10 +12,12 @@ $chemin = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';   // "/login?
 $chemin = rtrim($chemin, '/') ?: '/';                                // "/login/"    -> "/login"
 var_dump($chemin); // Affiche le chemin pour le débogage
 
-if (!isset($routes[$chemin])) {
-    // http_response_code(404);
-    // render('404', ['chemin' => $chemin]);
-    // exit;
-}
+$nomRoute = $routes[$chemin];
+$fichierController = $racine . '/src/Controller/' . $nomRoute . '.php';
+$fichierVue = $racine . '/views/' . $nomRoute . '.php';
 
-require $racine . '/src/Controller/' . $routes[$chemin] . '.php';
+if (file_exists($fichierController)) {
+    require $fichierController;
+} elseif (file_exists($fichierVue)) {
+    render($nomRoute);
+}
