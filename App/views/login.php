@@ -8,7 +8,7 @@ require '../views/partials/header.php';
         <p><?= htmlspecialchars($erreur) ?></p>
     <?php endif; ?>
 
-    <form method="post" action="login.php">
+    <form method="post" action="/login">
         <p>
             <label for="email">Email</label><br>
             <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
