@@ -1,7 +1,6 @@
 <?php
 // ... HTML propre à la page ...
-require '../views/partials/header.php';
-?>     
+?>
     <h1>Inscription</h1>
 
     <?php if ($succes): ?>
@@ -32,4 +31,3 @@ require '../views/partials/header.php';
         </form>
     <?php endif; ?>
 
-<?php require '../views/partials/footer.php'; ?>

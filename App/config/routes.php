@@ -4,4 +4,6 @@ return [
     '/login'    => 'login',
     '/register' => 'register',
     '/logout'   => 'logout',
+    '/mentions-legales' => 'legal',
+    '/plan-du-site'     => 'sitemap',
 ];

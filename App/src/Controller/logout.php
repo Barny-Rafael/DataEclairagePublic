@@ -1,7 +1,8 @@
 <?php
-// Déconnexion : on gère l'action directement ici, dans la page.
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    session_destroy();
-    header('Location: index.php');
-    exit;
-}
+// vide et detruit la session
+$_SESSION = [];
+session_destroy();
+
+// redirection vers l'accueil
+header('Location: /');
+exit;

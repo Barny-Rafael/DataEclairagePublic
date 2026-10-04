@@ -1,7 +1,6 @@
 <?php
 // ... HTML propre à la page ...
-require '../views/partials/header.php';
-?>     
+?>
     <h1>Connexion</h1>
 
     <?php if ($erreur !== null): ?>
@@ -22,4 +21,3 @@ require '../views/partials/header.php';
 
     <p>Pas encore de compte ? <a href="/register">Inscrivez-vous</a>.</p>
 
-<?php require '../views/partials/footer.php'; ?>
