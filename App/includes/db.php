@@ -13,7 +13,7 @@ if (str_starts_with($dsn, 'sqlite:') && !str_starts_with(substr($dsn, 7), '/')) 
 $pdo = new PDO($dsn, env('DB_USER') ?: null, env('DB_PASSWORD') ?: null);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pdo->exec('CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL
 )');

@@ -2,56 +2,65 @@
 
 namespace App\Controller;
 
+use App\Core\Request;
+use App\Core\Response;
 use App\Model\UserRepository;
 
 final class AuthController
 {
     public function __construct(private readonly UserRepository $repository) {}
 
-    public function loginForm(string $erreur = null, string $email = ''): void
-    {
-        render('login', [
-            'titre'   => 'Connexion',
-            'erreur' => $erreur,
-            'email'   => $email
-        ]);
-    }
+	public function loginForm(Request $request): Response
+	{
+		return render('login',
+			['titre' => 'Connexion',
+			'erreur' => null,
+			'email' => '']);
+	}
 
-    public function login(): void
+    public function login(Request $request): Response
     {
-        $email = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
-        $utilisateur = $this->repository->findByEmail($email);
-
-        if ($utilisateur && $utilisateur->verifyPassword($password)) {
-            $_SESSION['utilisateur'] = [
-                'id' => $utilisateur->id,
-                'email' => $utilisateur->email
-            ];
-            header('Location: /');
-            exit;
+        if($request->session('utilisateur') != null){
+			return Response::redirect('/');
         }
 
-        $erreur = 'Email ou mot de passe incorrect.';
+		$email = trim($request->post('email', ''));
+		$password = $request->post('password', '');
 
-        $this->loginForm($erreur, $email);
+		$utilisateur = $this->repository->findByEmail($email);
+
+        if ($utilisateur && $utilisateur->verifyPassword($password)) {
+           session_regenerate_id(true);
+		   $request->setSession('utilisateur', [
+			   'id' => $utilisateur->id,
+			   'email' => $utilisateur->email,
+		   ]);
+		   return Response::redirect('/');
+        }
+
+       return render('login', [
+		   'titre' => 'Connexion',
+	       'erreur' => 'Email ou mot de passe incorrect.',
+	       'email' => $email
+       ]);
     }
 
-    public function registerForm(array $erreurs = [], bool $succes = false, string $email = ''): void
-    {
-        render('register', [
-            'titre'   => 'Inscription',
-            'erreurs' => $erreurs,
-            'succes'  => $succes,
-            'email'   => $email
-        ]);
-    }
+	public function registerForm(Request $request): Response
+	{
+		return render('register',
+				['titre' => 'Inscription',
+				'erreurs' => [], 'succes' => false,
+				'email' => '']);
+	}
 
-    public function register(): void
+    public function register(Request $request): Response
     {
-        $email = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
-        $confirmation = $_POST['confirmation'] ?? '';
+		$erreurs = [];
+		$succes = false;
+
+	    $email = trim($request->post('email', ''));
+	    $password = $request->post('password', '');
+	    $confirmation = $request->post('confirmation', '');
 
         // Validation
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -77,15 +86,19 @@ final class AuthController
             $succes = true;
         }
 
-        $this->registerForm($erreurs, $succes, $email);
+		return render('register', [
+			'titre' => 'Inscription',
+			'erreurs' => $erreurs,
+			'succes' => $succes,
+			'email' => $email
+		]);
     }
 
 
 
-    public function logout(): void
+    public function logout(Request $request): Response
     {
         session_destroy();
-        header('Location: /');
-        exit;
+        return Response::redirect('/');
     }
 }
