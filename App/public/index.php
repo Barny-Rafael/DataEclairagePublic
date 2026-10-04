@@ -1,23 +1,45 @@
 <?php
-$racine = dirname(__DIR__);                    // on est dans public/, le projet est un cran au-dessus
+
+use App\Model\UserRepository;
+use App\Controller\HomeController;
+use App\Controller\AuthController;
+
+$racine = dirname(__DIR__);
 
 require $racine . '/autoload.php';
 require $racine . '/src/Core/render.php';
-require $racine . '/src/Core/db.php';
-session_start();                               // une seule fois, pour tout le site
+$pdo = require $racine . '/src/Core/db.php';session_start();
+
+$chemin = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
+$chemin = rtrim($chemin, '/') ?: '/';
+
+$methode = $_SERVER['REQUEST_METHOD'];
+
+$repository = new UserRepository($pdo);
+$controleurs = [
+    HomeController::class => fn() => new HomeController(),
+    AuthController::class => fn() => new AuthController($repository),
+];
 
 $routes = require $racine . '/config/routes.php';
 
-$chemin = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';   // "/login?x=1" -> "/login"
-$chemin = rtrim($chemin, '/') ?: '/';                                // "/login/"    -> "/login"
-var_dump($chemin); // Affiche le chemin pour le débogage
+foreach ($routes as [$routeMethode, $routeChemin, $cible]) {
+    if ($routeMethode === $methode && $routeChemin === $chemin) {
 
-$nomRoute = $routes[$chemin];
-$fichierController = $racine . '/src/Controller/' . $nomRoute . '.php';
-$fichierVue = $racine . '/views/' . $nomRoute . '.php';
+        if (is_array($cible)) {
+            [$classe, $action] = $cible;
+            $controleur = $controleurs[$classe]();
+            $controleur->$action();
+            exit;
+        }
 
-if (file_exists($fichierController)) {
-    require $fichierController;
-} elseif (file_exists($fichierVue)) {
-    render($nomRoute);
+        if (is_string($cible)) {
+            render($cible);
+            exit;
+        }
+    }
 }
+
+// 404 si aucune route ne correspond
+http_response_code(404);
+render('404', ['chemin' => $chemin]);
