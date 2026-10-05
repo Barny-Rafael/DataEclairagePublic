@@ -37,4 +37,10 @@ foreach ($routes as [$routeMethode, $routeChemin, [$classe, $action]]) {
 }
 
 http_response_code(404);            // aucune route n'a correspondu
-render('404', ['chemin' => $chemin]);
+$titre = 'Page introuvable';
+$description = 'La page demandée n\'existe pas.';
+render('404', [
+    'chemin' => $chemin,
+    'titre' => $titre,
+    'description' => $description
+]);

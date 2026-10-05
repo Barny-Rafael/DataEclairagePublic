@@ -10,10 +10,14 @@ final class AuthController
 
     public function loginForm(string $erreur = null, string $email = ''): void
     {
+        $titre = 'Connexion';
+        $description = 'Connectez-vous à votre compte utilisateur Data Éclairage Public.';
+
         render('login', [
-            'titre'   => 'Connexion',
+            'titre' => $titre,
             'erreur' => $erreur,
-            'email'   => $email
+            'email' => $email,
+            'description' => $description
         ]);
     }
 
@@ -39,11 +43,15 @@ final class AuthController
 
     public function registerForm(array $erreurs = [], bool $succes = false, string $email = ''): void
     {
+        $titre = 'Inscription';
+        $description = 'Créez un compte pour accéder aux services de Data Éclairage Public.';
+
         render('register', [
-            'titre'   => 'Inscription',
+            'titre' => $titre,
             'erreurs' => $erreurs,
-            'succes'  => $succes,
-            'email'   => $email
+            'succes' => $succes,
+            'email' => $email,
+            'description' => $description
         ]);
     }
 

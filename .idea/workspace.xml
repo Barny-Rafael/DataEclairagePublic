@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8b6b4b49-f480-4407-b8fb-3f9b7e2ec4f2" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="PHP File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;nvillard135&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Barny-Rafael/DataEclairagePublic.git&quot;,
+    &quot;accountId&quot;: &quot;a2df5c3b-84e4-4aa6-a893-4babe0e69b76&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.000000000001609" />
+      <entry key="S30" value="1.0001786846908638" />
+      <entry key="S60" value="1.0368696077118882" />
+      <entry key="M2" value="1.7176900292693649" />
+      <entry key="M5" value="7.732329256117557" />
+      <entry key="M10" value="20.07655782448325" />
+      <entry key="M15" value="30.194843858973037" />
+      <entry key="M30" value="48.25125217689597" />
+      <entry key="H1" value="62.63614091748361" />
+      <entry key="H2" value="71.96432705437091" />
+      <entry key="H4" value="80.35410644991985" />
+      <entry key="D1" value="172.08682260174493" />
+      <entry key="W1" value="243.56104853627994" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="3.5050664836822803E-272" />
+      <entry key="S10" value="1.872182278433986E-136" />
+      <entry key="S30" value="5.720702676681692E-46" />
+      <entry key="S60" value="2.391799046049164E-23" />
+      <entry key="M2" value="4.8906022594862065E-12" />
+      <entry key="M5" value="2.9905077873833747E-5" />
+      <entry key="M10" value="0.005468553544936157" />
+      <entry key="M15" value="0.031039518755129895" />
+      <entry key="M30" value="0.17618035859673287" />
+      <entry key="H1" value="0.41973907861658877" />
+      <entry key="H2" value="0.6486709415192513" />
+      <entry key="H4" value="0.8331664026903566" />
+      <entry key="D1" value="1.5163808413116384" />
+      <entry key="W1" value="1.9134399559039297" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.7219645977612481" />
+      <entry key="MS500" value="0.9369214468724255" />
+      <entry key="S2" value="0.9838429889437325" />
+      <entry key="S5" value="0.9935055968910625" />
+      <entry key="S10" value="0.996747509098419" />
+      <entry key="S30" value="0.9990864728808004" />
+      <entry key="S60" value="1.0357186279145258" />
+      <entry key="M2" value="1.712691151891707" />
+      <entry key="M5" value="7.721954682468165" />
+      <entry key="M10" value="20.072747079750325" />
+      <entry key="M15" value="30.218272783295923" />
+      <entry key="M30" value="48.42255995943571" />
+      <entry key="H1" value="63.053002154015374" />
+      <entry key="H2" value="72.61140018617502" />
+      <entry key="H4" value="81.1864155039821" />
+      <entry key="D1" value="173.60301607207649" />
+      <entry key="W1" value="245.4744575122292" />
+    </decayedShown>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3KCNEJXYkZPUf2Sy6VDrYVH2wux" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="index.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/App/public/index.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHP Script.index.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.10968.76" />
+        <option value="bundled-php-predefined-a98d8de5180a-9522f28f0b20-com.jetbrains.php.sharedIndexes-PS-262.10968.76" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8b6b4b49-f480-4407-b8fb-3f9b7e2ec4f2" name="Changes" comment="" />
+      <created>1791057478451</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1791057478451</updated>
+      <workItem from="1791057479701" duration="7704000" />
+      <workItem from="1791135405432" duration="23646000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
