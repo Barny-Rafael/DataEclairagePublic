@@ -32,6 +32,4 @@ final class UserRepository
         ]);
         return new User($this->pdo->lastInsertId(), $email, password_hash($motDePasseClair, PASSWORD_DEFAULT));
     }
-
-    //private function hydrater(array $ligne): User     // une ligne SQL -> un objet, en un seul endroit
 }

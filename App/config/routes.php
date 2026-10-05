@@ -4,6 +4,7 @@ use App\Controller\HomeController;
 use App\Controller\AuthController;
 use App\Controller\LegalController;
 use App\Controller\SitemapController;
+use App\Controller\AccountController;
 
 return [
     ['GET',  '/', [HomeController::class, 'index']],
@@ -13,5 +14,6 @@ return [
     ['POST', '/register', [AuthController::class, 'register']],
     ['GET',  '/logout', [AuthController::class, 'logout']],
     ['GET', '/legal', [LegalController::class, 'legal']],
-    ['GET', '/sitemap', [SitemapController::class, 'sitemap']]
+    ['GET', '/sitemap', [SitemapController::class, 'sitemap']],
+    ['GET', '/account', [AccountController::class, 'account']]
 ];
