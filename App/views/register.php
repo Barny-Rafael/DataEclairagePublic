@@ -14,7 +14,7 @@
             </ul>
         <?php endif; ?>
 
-        <form method="post" action="register.php">
+        <form method="post" action="/register">
             <p>
                 <label for="email">Email</label><br>
                 <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>

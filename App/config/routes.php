@@ -1,9 +1,15 @@
 <?php
+
+use App\Controller\HomeController;
+use App\Controller\AuthController;
+
 return [
-    '/'         => 'home',
-    '/login'    => 'login',
-    '/register' => 'register',
-    '/logout'   => 'logout',
-    '/mentions-legales' => 'legal',
-    '/plan-du-site'     => 'sitemap',
+    ['GET', '/', [HomeController::class, 'index']],
+    ['GET', '/login', [AuthController::class, 'loginForm']],
+    ['POST', '/login', [AuthController::class, 'login']],
+    ['GET', '/register', [AuthController::class, 'registerForm']],
+    ['POST', '/register', [AuthController::class, 'register']],
+    ['GET', '/logout', [AuthController::class, 'logout']],
+    ['GET', '/mentions-legales', 'legal'],
+    ['GET', '/plan-du-site', 'sitemap'],
 ];
