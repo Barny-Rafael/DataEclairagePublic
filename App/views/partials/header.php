@@ -13,5 +13,6 @@
             | <a href="/register">Inscription</a>
         <?php else: ?>
             | <a href="/logout">Déconnexion</a>
+            | <a href="/account">Mon compte</a>
         <?php endif; ?>
     </nav>
