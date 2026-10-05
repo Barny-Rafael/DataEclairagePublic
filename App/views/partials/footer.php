@@ -1,9 +1,6 @@
-<footer>
-    <hr>
-    <p>
-        <a href="/mentions-legales">Mentions légales</a> |
-        <a href="/plan-du-site">Plan du site</a>
-    </p>
-</footer>
+    <nav>
+        <a href="/legal">Mentions légales</a>
+        | <a href="/sitemap">Plan du site</a>
+    </nav>
 </body>
 </html>
