@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\UserRepository;
+use App\Model\User;
 
 final class AuthController
 {
@@ -89,5 +90,89 @@ final class AuthController
         session_destroy();
         header('Location: /');
         exit;
+    }
+
+    public function resetform(?string $erreur = null, ?string $token = null): void
+    {
+        //Vérifie le lien du token
+        if($token === null){
+            $token = $_GET['token'] ?? '';
+
+            if($this->repository->findUserIdByToken(hash('sha256', $token)) === null){
+                $erreur = 'Lien invalide ou expiré';
+                $token = '';
+            }
+        }
+
+        render('reset', [
+            'titre'  => 'Nouveau mot de passe',
+            'erreur' => $erreur,
+            'token'  => $token,
+        ]);
+    }
+
+    public function reset(): void
+    {
+        $token = trim($_POST['token'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirmation = $_POST['password_confirmation'] ?? '';
+
+        $userId = $this->repository->findUserIdByToken(hash('sha256', $token));
+
+        if($userId === null){
+            $this->resetform('Lien invalide ou expiré.', '');
+            return;
+        }
+
+        if(strlen($password) < 8){
+            $this->resetForm('Le mot de passe doit contenir au moins 8 caractères.', $token);
+            return;
+        }
+
+        if($password !== $confirmation){
+            $this->resetform('Les deux mots de passe ne correspondent pas.', $token);
+            return;
+        }
+
+        $this->repository->updatePassword($userId, password_hash($password, PASSWORD_DEFAULT));
+        $this->repository->deleteResetTokens($userId);
+
+        header('Location: /login');
+        exit;
+    }
+
+    public function forgotForm(?string $erreur = null, string $message = '', string $email = ''): void
+    {
+        render('forgot', [
+            'titre' => 'Mot de passe oublié',
+            'erreur' => $erreur,
+        ]);
+    }
+    public function forgot(): void
+    {
+        $email = trim($_POST['email'] ?? '');
+        $erreur = null;
+        $succes = false;
+
+        //Vérification de l'existence du mail dans le bdd
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erreur = 'L\'adresse email est invalide.';
+        } else {
+            $user = $this->repository->findByEmail($email);
+
+            if ($user) {
+                $token = bin2hex(random_bytes(32));
+                $tokenHash = hash('sha256', $token);
+                $expiresAt = date('Y-m-d H:i:s', time() + 600);
+
+                $this->repository->deleteResetTokens($user->id);
+                $this->repository->createResetToken($user->id, $tokenHash, $expiresAt);
+            }
+
+            $succes = true;
+
+            $message = 'Si ce compte existe, un email a été envoyé.';
+        }
+
     }
 }
