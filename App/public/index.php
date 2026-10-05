@@ -4,6 +4,8 @@ use App\Core\Request;
 use App\Model\UserRepository;
 use App\Controller\HomeController;
 use App\Controller\AuthController;
+use App\Controller\LegalController;
+use App\Controller\SitemapController;
 
 $racine = dirname(__DIR__);                    // on est dans public/, le projet est un cran au-dessus
 
@@ -19,6 +21,8 @@ $repository = new UserRepository($pdo);
 $controleurs = [
     HomeController::class => fn() => new HomeController(),
     AuthController::class => fn() => new AuthController($repository),
+    LegalController::class => fn() => new LegalController(),
+    SitemapController::class => fn() => new SitemapController()
 ];
 
 $routes = require $racine . '/config/routes.php';

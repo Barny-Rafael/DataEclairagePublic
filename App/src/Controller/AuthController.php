@@ -55,12 +55,11 @@ final class AuthController
 
     public function register(Request $request): Response
     {
-		$erreurs = [];
-		$succes = false;
-
-	    $email = trim($request->post('email', ''));
-	    $password = $request->post('password', '');
-	    $confirmation = $request->post('confirmation', '');
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirmation = $_POST['confirmation'] ?? '';
+        $succes = false;
+        $erreurs = [];
 
         // Validation
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
