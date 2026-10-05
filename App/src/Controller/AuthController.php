@@ -52,6 +52,8 @@ final class AuthController
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
         $confirmation = $_POST['confirmation'] ?? '';
+        $succes = false;
+        $erreurs = [];
 
         // Validation
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
