@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($titre) ?></title>
+    <link rel="stylesheet" href="/CSS/CSS_Basic_All_Pages.css">
 </head>
 <body>
     <nav>
