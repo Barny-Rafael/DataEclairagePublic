@@ -32,4 +32,33 @@ final class UserRepository
         ]);
         return new User($this->pdo->lastInsertId(), $email, password_hash($motDePasseClair, PASSWORD_DEFAULT));
     }
+    public function deleteDeleteTokens(string $email): void
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE users SET delete_token_hash = NULL, delete_expires_at = NULL WHERE email = :email'
+        );
+        $stmt->execute(['email' => $email]);
+    }
+    public function createDeleteToken(string $email, string $tokenHash, string $expiresAt): void
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE users SET delete_token_hash = :hash, delete_expires_at = :expires WHERE email = :email'
+        );
+        $stmt->execute(['hash' => $tokenHash, 'expires' => $expiresAt, 'email' => $email]);
+    }
+    public function deleteUser(string $email): void
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM users WHERE email = :email');
+        $stmt->execute(['email' => $email]);
+    }
+    public function findEmailByDeleteToken(string $tokenHash): ?string
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT email FROM users WHERE delete_token_hash = :hash AND delete_expires_at > :now'
+        );
+        $stmt->execute(['hash' => $tokenHash, 'now' => date('Y-m-d H:i:s')]);
+        $email = $stmt->fetchColumn();
+
+        return $email === false ? null : $email;
+    }
 }
