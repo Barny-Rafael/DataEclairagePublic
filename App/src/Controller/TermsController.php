@@ -5,10 +5,12 @@ final class TermsController
 {
     public function terms(): void
     {
-        $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $titre = 'Conditions Générales';
+        $description = 'Consultez les conditions générales d’utilisation de Data Éclairage Public.';
+
         render('terms', [
-            'titre' => 'Conditions générales d\'utilisation',
-            'utilisateur' => $utilisateur
+            'titre' => $titre,
+            'description' => $description
         ]);
     }
 }

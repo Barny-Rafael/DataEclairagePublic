@@ -114,13 +114,16 @@ final class AuthController
     public function deleteform(string $erreur = null, string $token = null, bool $succes = false, string $email = ''): void
     {
         $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $titre = 'Suppression de Compte';
+        $description = 'Confirmez la suppression de votre compte Data Éclairage Public.';
         render('delete', [
-            'titre'  => 'Suppression de Compte',
+            'titre' => $titre,
             'utilisateur' => $utilisateur,
             'erreur' => $erreur,
             'token'  => $token,
             'succes'  => $succes,
-            'email'   => $email
+            'email'   => $email,
+            'description' => $description,
         ]);
     }
 
@@ -146,12 +149,16 @@ final class AuthController
     public function verificationForm(string $erreur = null, bool $succes = false, string $email = ''): void
     {
         $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $titre = 'Vérification pour suppression de compte';
+        $description = 'Page de vérification pour la demande de suppression de votre compte.';
+
         render('verification', [
-            'titre' => 'Vérification pour suppression de compte',
+            'titre' => $titre,
             'utilisateur' => $utilisateur,
             'erreur' => $erreur,
             'succes'  => $succes,
-            'email'   => $email
+            'email'   => $email,
+            'description' => $description,
         ]);
     }
 
@@ -201,10 +208,13 @@ final class AuthController
         }
 	    }
 
+        $titre = 'Nouveau mot de passe';
+        $description = 'Saisissez votre nouveau mot de passe pour réinitialiser l’accès à votre compte.';
         render('reset', [
-            'titre'  => 'Nouveau mot de passe',
+            'titre' => $titre,
             'erreur' => $erreur,
             'token'  => $token,
+            'description' => $description,
         ]);
     }
 
@@ -240,11 +250,14 @@ final class AuthController
 
     public function forgotForm(?string $erreur = null, string $message = '', string $email = ''): void
     {
+        $titre = 'Forgot password';
+        $description = 'Demandez la réinitialisation de votre mot de passe Data Éclairage Public.';
 	    render('forgot', [
-		    'titre'   => 'Forgot password',
-		    'erreur'  => $erreur,
+            'titre' => $titre,
+            'erreur'  => $erreur,
 		    'message' => $message,
 		    'email'   => $email,
+            'description' => $description,
 	    ]);
     }
   
