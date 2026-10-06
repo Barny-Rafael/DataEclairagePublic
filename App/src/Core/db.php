@@ -24,3 +24,6 @@ $pdo->exec('CREATE TABLE IF NOT EXISTS users (
 $pdo->exec('ALTER TABLE users
     ADD COLUMN IF NOT EXISTS reset_token_hash TEXT,
     ADD COLUMN IF NOT EXISTS reset_expires_at TIMESTAMP');
+
+$pdo->exec('ALTER TABLE users
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT now()');

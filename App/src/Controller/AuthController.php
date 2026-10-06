@@ -94,15 +94,15 @@ final class AuthController
 
     public function resetform(?string $erreur = null, ?string $token = null): void
     {
-        //Vérifie le lien du token
-        if($token === null){
-            $token = $_GET['token'] ?? '';
+		//Vérification du lien
+	    if($token === null){
+			$token = $_GET['token'] ?? '';
 
-            if ($this->repository->findEmailByToken(hash('sha256', $token)) === null) {
-                $erreur = 'Lien invalide ou expiré';
-                $token = '';
-            }
-        }
+			if($this->repository->findEmailByToken(hash('sha256', $token)) === null){
+				$erreur = "Lien invalide ou expiré";
+				$token = '';
+			}
+	    }
 
         render('reset', [
             'titre'  => 'Nouveau mot de passe',
@@ -170,7 +170,9 @@ final class AuthController
 
                 $this->repository->deleteResetTokens($user->email);
                 $this->repository->createResetToken($user->email, $tokenHash, $expiresAt);
-	            $link = 'https://data-eclairagepublic.alwaysdata.net/reset?token=' . $token;
+	            $link = 'http://localhost:8002/reset?token=' . $token;
+	            $subject = 'Password reset';
+	            $body    = "Click this link to choose a new password:\n\n$link\n\nThis is an automated message, please do not reply.";
 	            $this->sendResetMail($user->email, $link);
             }
 
@@ -183,11 +185,9 @@ final class AuthController
 
     }
 
-	private function sendResetMail(string $email, string $link): void
+	private function sendResetMail(string $email,string $subject, string $body, string $link): void
 	{
-
-		$subject = 'Password reset';
-		$body    = "Click this link to choose a new password:\n\n$link\n\nThis is an automated message, please do not reply.";
+		error_log("Lien du reset pour $email : $link");
 		$headers = "From: no-reply <data-eclairagepublic@alwaysdata.net>\r\n"
 			. "Content-Type: text/plain; charset=UTF-8";
 
