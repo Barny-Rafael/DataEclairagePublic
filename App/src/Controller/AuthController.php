@@ -170,7 +170,7 @@ final class AuthController
 
                 $this->repository->deleteResetTokens($user->email);
                 $this->repository->createResetToken($user->email, $tokenHash, $expiresAt);
-	            $link = 'http://localhost:8002/reset?token=' . $token;
+	            $link = 'https://data-eclairagepublic.alwaysdata.net/reset?token=' . $token;
 	            $subject = 'Password reset';
 	            $body    = "Click this link to choose a new password:\n\n$link\n\nThis is an automated message, please do not reply.";
 	            $this->sendResetMail($user->email, $link);
@@ -187,7 +187,7 @@ final class AuthController
 
 	private function sendResetMail(string $email,string $subject, string $body, string $link): void
 	{
-		error_log("Lien du reset pour $email : $link");
+
 		$headers = "From: no-reply <data-eclairagepublic@alwaysdata.net>\r\n"
 			. "Content-Type: text/plain; charset=UTF-8";
 
