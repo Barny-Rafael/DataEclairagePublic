@@ -5,7 +5,7 @@ final class TermsController
 {
     public function terms(): void
     {
-        $titre = 'Conditions Générales';
+        $titre = 'Conditions générales d\'utilisation';
         $description = 'Consultez les conditions générales d’utilisation de Data Éclairage Public.';
 
         render('terms', [
