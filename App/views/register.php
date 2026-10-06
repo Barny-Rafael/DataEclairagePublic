@@ -30,9 +30,8 @@ require '../views/partials/header.php';
                 <input type="password" id="confirmation" name="confirmation" required>
             </p>
             <p>
-                <p>
-                <label for="terms">J'accepte les <a href="/terms">conditions générales d'utilisation</a></label><br>
                 <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">J'accepte les <a href="/terms">conditions générales d'utilisation</a></label><br>
             </p>
             </p>
             <button type="submit">S'inscrire</button>

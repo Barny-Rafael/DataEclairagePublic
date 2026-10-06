@@ -24,6 +24,6 @@ return [
     ['POST', '/reset', [AuthController::class, 'reset']],
     ['GET',  '/legal', [LegalController::class, 'legal']],
     ['GET',  '/sitemap', [SitemapController::class, 'sitemap']],
-	  ['GET', '/account', [AccountController::class, 'account']],
+	['GET', '/account', [AccountController::class, 'account']],
     ['GET', '/terms', [TermsController::class, 'terms']]
 ];
