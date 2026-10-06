@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/CSS/CSS_Basic_All_Pages.css">
 </head>
 <body>
-    <nav>
+    <header>
         <a href="/">Accueil</a>
         <?php if (!isset($utilisateur)): ?>
             | <a href="/login">Connexion</a>
@@ -14,4 +14,4 @@
         <?php else: ?>
             | <a href="/logout">Déconnexion</a>
         <?php endif; ?>
-    </nav>
+    </header>
