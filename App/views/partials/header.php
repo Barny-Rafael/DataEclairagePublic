@@ -12,6 +12,6 @@
         <?php if (!isset($utilisateur)): ?>
             <p class="droite"><a href="/login">Connexion</a> | <a href="/register">Inscription</a></p>
         <?php else: ?>
-            <a href="/logout">Déconnexion</a>
+            <p class="droite"><a href="/logout">Déconnexion</a> | <a href="/account">Mon compte</a></p>
         <?php endif; ?>
     </header>
