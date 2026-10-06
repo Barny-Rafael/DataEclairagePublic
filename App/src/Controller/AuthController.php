@@ -103,7 +103,7 @@ final class AuthController
 		mail($email, $subject, $body, $headers);
 	}
 
-    public function deleteorm(string $erreur = null, string $token = null, bool $succes = false, string $email = ''): void
+    public function deleteForm(string $erreur = null, string $token = null, bool $succes = false, string $email = ''): void
     {
         $utilisateur = $_SESSION['utilisateur'] ?? null;
         render('delete', [
