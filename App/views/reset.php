@@ -1,5 +1,5 @@
 <?php require '../views/partials/header.php'; ?>
-
+<main>
 	<h1><?= htmlspecialchars($titre) ?></h1>
 
 <?php if (!empty($erreur)): ?>
@@ -20,5 +20,5 @@
 		<button type="submit">Changer le mot de passe</button>
 	</form>
 <?php endif; ?>
-
+</main>
 <?php require '../views/partials/footer.php'; ?>

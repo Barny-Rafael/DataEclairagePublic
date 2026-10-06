@@ -55,7 +55,12 @@ final class UserRepository
     {
         $stmt = $this->pdo->prepare(
             'SELECT email FROM users WHERE delete_token_hash = :hash AND delete_expires_at > :now'
+        );
+        $stmt->execute(['hash' => $tokenHash, 'now' => date('Y-m-d H:i:s')]);
+        $email = $stmt->fetchColumn();
 
+        return $email === false ? null : $email;
+    }
     public function deleteResetTokens(string $email): void
     {
         $stmt = $this->pdo->prepare(
