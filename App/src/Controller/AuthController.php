@@ -82,10 +82,6 @@ final class AuthController
             $erreurs[] = 'Les deux mots de passe ne correspondent pas.';
         }
 
-        if (!$terms) {
-            $erreurs[] = 'Vous devez accepter les conditions générales d\'utilisation.';
-        }
-
         // Vérifie que l'email n'est pas déjà utilisé
         if (empty($erreurs)) {
             if ($this->repository->emailExists($email)) {
@@ -111,39 +107,38 @@ final class AuthController
 		mail($email, $subject, $body, $headers);
 	}
 
-    public function deleteForm(string $erreur = null, string $token = null, bool $succes = false, string $email = ''): void
+    public function deleteForm(string $erreur = null, string $token = null, bool $succes = false): void
     {
-        $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $token = $_GET['token'] ?? $token;
         $titre = 'Suppression de Compte';
         $description = 'Confirmez la suppression de votre compte Data Éclairage Public.';
         render('delete', [
             'titre' => $titre,
-            'utilisateur' => $utilisateur,
             'erreur' => $erreur,
             'token'  => $token,
             'succes'  => $succes,
-            'email'   => $email,
-            'description' => $description,
+            'description' => $description
         ]);
     }
 
     public function delete(): void
     {
-        $email = trim($_POST['email'] ?? '');
         $token = $_POST['token'] ?? '';
-        $erreur='';
+       
+        $erreur=null;
         $succes=false;
-        if ($this->repository->findEmailByDeleteToken(hash('sha256', $token)) === null){
-			    $erreur = "Lien invalide ou expiré";
-		    }
+
+        $email = $this->repository->findEmailByDeleteToken(hash('sha256', $token));
+        if ($email === null){
+			$erreur = "Lien invalide ou expiré";
+		}
         else {
-            $utilisateur = $_SESSION['utilisateur'] ?? null;
-            $this->repository->deleteUser($utilisateur->email);
-            $this->repository->deleteDeleteTokens($email);
+            $this->repository->deleteUser($email);
             $succes=true;
             session_destroy();
+            
         }
-        $this->deleteForm($erreur, $token, $succes, $email);
+        $this->deleteForm($erreur, $token, $succes);
     }
 
     public function verificationForm(string $erreur = null, bool $succes = false, string $email = ''): void
@@ -167,7 +162,6 @@ final class AuthController
         $email = trim($_POST['email'] ?? '');
         $succes = false;
         $erreur = '';
-        $message = '';
 
         //Vérification de l'existence du mail dans le bdd
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -182,18 +176,15 @@ final class AuthController
 
                 $this->repository->deleteDeleteTokens($email);
                 $this->repository->createDeleteToken($email, $tokenHash, $expiresAt);
-	              $link = 'https://data-eclairagepublic.alwaysdata.net/delete?token=' . $token;
+	            $link = 'https://data-eclairagepublic.alwaysdata.net/delete?token=' . $token;
                 $subject = 'Suppression de compte';
                 $body = "Cliquez sur ce lien pour supprimer votre compte:\n\n$link\n\nCeci est un message automatique, veuillez ne pas y répondre.";
-	              $this->sendMail($utilisateur->email, $subject, $body);
+	            $this->sendMail($utilisateur->email, $subject, $body);
             }
 
             $succes = true;
-
-            $message = 'Si ce compte existe, un email a été envoyé.';
-
         }
-	    $this->verificationForm($erreur, $message, $email);
+	    $this->verificationForm($erreur, $succes, $email);
     }
   
     public function resetform(?string $erreur = null, ?string $token = null): void

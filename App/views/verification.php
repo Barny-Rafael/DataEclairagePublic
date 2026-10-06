@@ -9,6 +9,10 @@ require '../views/partials/header.php';
         <p><?= htmlspecialchars($erreur) ?></p>
     <?php endif; ?>
 
+    <?php if ($succes !== false): ?>
+        <p><?= htmlspecialchars($erreur) ?></p>
+    <?php endif; ?>
+
     <form method="post" action="/verification">
         <p>
             <label for="email">Email</label><br>
