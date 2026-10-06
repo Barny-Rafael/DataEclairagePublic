@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="<?= htmlspecialchars($description ?? 'Site de consultation et gestion de données éclairage public') ?>">
     <title><?= htmlspecialchars($titre) ?></title>
     <link rel="stylesheet" href="/CSS/CSS_Basic_All_Pages.css">
 </head>
