@@ -20,4 +20,9 @@ require '../views/partials/header.php';
             <p>Les données collectées (email) servent uniquement à la gestion de votre compte. Aucun cookie tiers n'est utilisé.</p>
         </section>
 
+        <section>
+            <h2>Conditions générales d'utilisation</h2>
+            <p>Nos conditions générales d'utilisation sont écrites <a href="/terms">ici</a>.</p>
+        </section>
+
 <?php require '../views/partials/footer.php'; ?>

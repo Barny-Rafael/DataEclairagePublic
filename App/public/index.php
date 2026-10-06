@@ -5,6 +5,8 @@ use App\Controller\HomeController;
 use App\Controller\AuthController;
 use App\Controller\LegalController;
 use App\Controller\SitemapController;
+use App\Controller\AccountController;
+use App\Controller\TermsController;
 
 $racine = dirname(__DIR__);                    // on est dans public/, le projet est un cran au-dessus
 
@@ -23,7 +25,9 @@ $controleurs = [
     HomeController::class => fn() => new HomeController(),
     AuthController::class => fn() => new AuthController($repository),
     LegalController::class => fn() => new LegalController(),
-    SitemapController::class => fn() => new SitemapController()
+    SitemapController::class => fn() => new SitemapController(),
+    AccountController::class => fn() => new AccountController(),
+    TermsController::class => fn() => new TermsController()
 ];
 
 $routes = require $racine . '/config/routes.php';
@@ -36,5 +40,9 @@ foreach ($routes as [$routeMethode, $routeChemin, [$classe, $action]]) {
     }
 }
 
+$utilisateur = $_SESSION['utilisateur'] ?? null;
 http_response_code(404);            // aucune route n'a correspondu
-render('404', ['chemin' => $chemin]);
+render('404', [
+    'chemin' => $chemin,
+    'utilisateur' => $utilisateur
+]);

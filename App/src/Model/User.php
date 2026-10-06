@@ -13,4 +13,5 @@ final class User
     {
         return password_verify($password, $this->passwordHash);
     }
+
 }
