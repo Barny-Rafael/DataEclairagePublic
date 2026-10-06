@@ -7,11 +7,11 @@
 </head>
 <body>
     <header>
-        <a href="/">Accueil</a>
+        <p class="gauche"><a href="/">Accueil</a></p>
+        <p>Data Eclairage Public</p>
         <?php if (!isset($utilisateur)): ?>
-            | <a href="/login">Connexion</a>
-            | <a href="/register">Inscription</a>
+            <p class="droite"><a href="/login">Connexion</a> | <a href="/register">Inscription</a></p>
         <?php else: ?>
-            | <a href="/logout">Déconnexion</a>
+            <a href="/logout">Déconnexion</a>
         <?php endif; ?>
     </header>
