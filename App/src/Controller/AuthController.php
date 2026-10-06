@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\UserRepository;
+use App\Model\User;
 
 final class AuthController
 {
@@ -122,8 +123,8 @@ final class AuthController
         $erreur='';
         $succes=false;
         if ($this->repository->findEmailByDeleteToken(hash('sha256', $token)) === null){
-			$erreur = "Lien invalide ou expiré";
-		}
+			    $erreur = "Lien invalide ou expiré";
+		    }
         else {
             $utilisateur = $_SESSION['utilisateur'] ?? null;
             $this->repository->deleteUser($utilisateur->email);
@@ -166,10 +167,10 @@ final class AuthController
 
                 $this->repository->deleteDeleteTokens($email);
                 $this->repository->createDeleteToken($email, $tokenHash, $expiresAt);
-	            $link = 'https://data-eclairagepublic.alwaysdata.net/delete?token=' . $token;
+	              $link = 'https://data-eclairagepublic.alwaysdata.net/delete?token=' . $token;
                 $subject = 'Suppression de compte';
                 $body = "Cliquez sur ce lien pour supprimer votre compte:\n\n$link\n\nCeci est un message automatique, veuillez ne pas y répondre.";
-	            $this->sendMail($utilisateur->email, $subject, $body);
+	              $this->sendMail($utilisateur->email, $subject, $body);
             }
 
             $succes = true;
@@ -178,5 +179,98 @@ final class AuthController
 
         }
 	    $this->verificationForm($erreur, $message, $email);
-    }    
+    }
+  
+    public function resetform(?string $erreur = null, ?string $token = null): void
+    {
+		//Vérification du lien
+	    if($token === null){
+			$token = $_GET['token'] ?? '';
+
+        if($this->repository->findEmailByToken(hash('sha256', $token)) === null){
+          $erreur = "Lien invalide ou expiré";
+          $token = '';
+        }
+	    }
+
+        render('reset', [
+            'titre'  => 'Nouveau mot de passe',
+            'erreur' => $erreur,
+            'token'  => $token,
+        ]);
+    }
+
+    public function reset(): void
+    {
+        $token = trim($_POST['token'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirmation = $_POST['password_confirmation'] ?? '';
+
+        $email = $this->repository->findEmailByToken(hash('sha256', $token));
+
+        if ($email === null) {
+            $this->resetform('Lien invalide ou expiré.', '');
+            return;
+        }
+
+        if(strlen($password) < 8){
+            $this->resetForm('Le mot de passe doit contenir au moins 8 caractères.', $token);
+            return;
+        }
+
+        if($password !== $confirmation){
+            $this->resetform('Les deux mots de passe ne correspondent pas.', $token);
+            return;
+        }
+
+        $this->repository->updatePassword($email, password_hash($password, PASSWORD_DEFAULT));
+        $this->repository->deleteResetTokens($email);
+
+        header('Location: /login');
+        exit;
+    }
+
+    public function forgotForm(?string $erreur = null, string $message = '', string $email = ''): void
+    {
+	    render('forgot', [
+		    'titre'   => 'Forgot password',
+		    'erreur'  => $erreur,
+		    'message' => $message,
+		    'email'   => $email,
+	    ]);
+    }
+  
+    public function forgot(): void
+    {
+        $email = trim($_POST['email'] ?? '');
+        $erreur = null;
+	      $message = '';
+        $succes = false;
+
+        //Vérification de l'existence du mail dans le bdd
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erreur = 'L\'adresse email est invalide.';
+        } else {
+            $utilisateur = $this->repository->findByEmail($email);
+
+            if ($utilisateur) {
+                $token = bin2hex(random_bytes(32));
+                $tokenHash = hash('sha256', $token);
+                $expiresAt = date('Y-m-d H:i:s', time() + 600);
+
+                $this->repository->deleteResetTokens($utilisateur->email);
+                $this->repository->createResetToken($utilisateur->email, $tokenHash, $expiresAt);
+	              $link = 'https://data-eclairagepublic.alwaysdata.net/reset?token=' . $token;
+	              $subject = 'Réinitialisation de mot';
+	              $body    = "Cliquez sur ce lien pour choisir un nouveau mot de passe :\n\n$link\n\nCeci est un message automatique, veuillez ne pas y répondre.";
+	              $this->sendMail($utilisateur->email, $subject, $body);
+            }
+
+            $succes = true;
+
+            $message = 'Si ce compte existe, un email a été envoyé.';
+
+        }
+	    $this->forgotForm($erreur, $message, $email);
+    }
 }

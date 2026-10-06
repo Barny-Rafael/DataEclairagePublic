@@ -7,6 +7,7 @@ $dsn = env('DB_DSN') ?? throw new RuntimeException('DB_DSN manquant dans .env');
 
 $pdo = new PDO($dsn, env('DB_USER') ?: null, env('DB_PASSWORD') ?: null);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 $pdo->exec('CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,

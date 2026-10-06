@@ -18,8 +18,12 @@ return [
     ['GET',  '/delete', [AuthController::class, 'deleteForm']],
     ['POST', '/delete', [AuthController::class, 'delete']],
     ['GET',  '/logout', [AuthController::class, 'logout']],
-    ['GET', '/legal', [LegalController::class, 'legal']],
-    ['GET', '/sitemap', [SitemapController::class, 'sitemap']],
-    ['GET', '/account', [AccountController::class, 'account']],
+    ['GET',  '/forgot', [AuthController::class, 'forgotForm']],
+    ['POST', '/forgot', [AuthController::class, 'forgot']],
+    ['GET',  '/reset', [AuthController::class, 'resetForm']],
+    ['POST', '/reset', [AuthController::class, 'reset']],
+    ['GET',  '/legal', [LegalController::class, 'legal']],
+    ['GET',  '/sitemap', [SitemapController::class, 'sitemap']],
+	  ['GET', '/account', [AccountController::class, 'account']],
     ['GET', '/terms', [TermsController::class, 'terms']]
 ];
