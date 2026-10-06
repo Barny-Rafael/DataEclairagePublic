@@ -21,5 +21,6 @@ require '../views/partials/header.php';
     </form>
 
     <p>Pas encore de compte ? <a href="/register">Inscrivez-vous</a>.</p>
+    <p><a href="/forgot">Mot de passe oublié ?</a></p>
 
 <?php require '../views/partials/footer.php'; ?>

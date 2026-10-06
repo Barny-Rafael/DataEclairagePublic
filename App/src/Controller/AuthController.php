@@ -143,15 +143,18 @@ final class AuthController
 
     public function forgotForm(?string $erreur = null, string $message = '', string $email = ''): void
     {
-        render('forgot', [
-            'titre' => 'Mot de passe oublié',
-            'erreur' => $erreur,
-        ]);
+	    render('forgot', [
+		    'titre'   => 'Forgot password',
+		    'erreur'  => $erreur,
+		    'message' => $message,
+		    'email'   => $email,
+	    ]);
     }
     public function forgot(): void
     {
         $email = trim($_POST['email'] ?? '');
         $erreur = null;
+	    $message = '';
         $succes = false;
 
         //Vérification de l'existence du mail dans le bdd
@@ -167,12 +170,28 @@ final class AuthController
 
                 $this->repository->deleteResetTokens($user->id);
                 $this->repository->createResetToken($user->id, $tokenHash, $expiresAt);
+
+	            $link = 'https://data-eclairagepublic.alwaysdata.net/reset?token=' . $token;
+	            $this->sendResetMail($user->email, $link);
             }
 
             $succes = true;
 
             $message = 'Si ce compte existe, un email a été envoyé.';
+
         }
+	    $this->forgotForm($erreur, $message, $email);
 
     }
+
+	private function sendResetMail(string $email, string $link): void
+	{
+
+		$subject = 'Password reset';
+		$body    = "Click this link to choose a new password:\n\n$link\n\nThis is an automated message, please do not reply.";
+		$headers = "From: no-reply <data-eclairagepublic@alwaysdata.net>\r\n"
+			. "Content-Type: text/plain; charset=UTF-8";
+
+		mail($email, $subject, $body, $headers);
+	}
 }

@@ -33,24 +33,20 @@ final class UserRepository
         return new User($this->pdo->lastInsertId(), $email, password_hash($motDePasseClair, PASSWORD_DEFAULT));
     }
 
-    public function deleteResetTokens(int $userId): void
-    {
-        $stmt = $this->pdo->prepare('DELETE FROM password_resets WHERE user_id = :user_id');
-        $stmt->execute(['user_id' => $userId]);
-    }
-
-    public function createResetToken(int $userId, string $tokenHash, string $expiresAt): void
-    {
-        $stmt = $this->pdo->prepare(
-            'INSERT INTO password_resets (user_id, token_hash, expires_at)
-             VALUES (:user_id, :token_hash, :expires_at)'
-        );
-        $stmt->execute([
-            'user_id' => $userId,
-            'token_hash' => $tokenHash,
-            'expires_at' => $expiresAt,
-        ]);
-    }
+	public function deleteResetTokens(int $userId): void
+	{
+		$stmt = $this->pdo->prepare(
+			'UPDATE users SET reset_token_hash = NULL, reset_expires_at = NULL WHERE id = :id'
+		);
+		$stmt->execute(['id' => $userId]);
+	}
+	public function createResetToken(int $userId, string $tokenHash, string $expiresAt): void
+	{
+		$stmt = $this->pdo->prepare(
+			'UPDATE users SET reset_token_hash = :hash, reset_expires_at = :expires WHERE id = :id'
+		);
+		$stmt->execute(['hash' => $tokenHash, 'expires' => $expiresAt, 'id' => $userId]);
+	}
 
     public function updatePassword(int $userId, string $passwordHash): void
     {
@@ -58,17 +54,16 @@ final class UserRepository
         $stmt->execute(['password' => $passwordHash, 'id' => $userId]);
     }
 
-    public function findUserIdByToken(string $tokenHash): ?int
-    {
-        $stmt = $this->pdo->prepare(
-            'SELECT user_id FROM password_resets
-         WHERE token_hash = :hash AND expires_at > :now'
-        );
-        $stmt->execute(['hash' => $tokenHash, 'now' => date('Y-m-d H:i:s')]);
-        $userId = $stmt->fetchColumn();
+	public function findUserIdByToken(string $tokenHash): ?int
+	{
+		$stmt = $this->pdo->prepare(
+			'SELECT id FROM users WHERE reset_token_hash = :hash AND reset_expires_at > :now'
+		);
+		$stmt->execute(['hash' => $tokenHash, 'now' => date('Y-m-d H:i:s')]);
+		$userId = $stmt->fetchColumn();
 
-        return $userId === false ? null : (int) $userId;
-    }
+		return $userId === false ? null : (int) $userId;
+	}
 
     //private function hydrater(array $ligne): User     // une ligne SQL -> un objet, en un seul endroit
 }
