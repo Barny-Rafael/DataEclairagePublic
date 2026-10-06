@@ -28,6 +28,12 @@ require '../views/partials/header.php';
                 <label for="confirmation">Confirmation du mot de passe</label><br>
                 <input type="password" id="confirmation" name="confirmation" required>
             </p>
+            <p>
+                <p>
+                <label for="terms">J'accepte les <a href="/terms">conditions générales d'utilisation</a></label><br>
+                <input type="checkbox" id="terms" name="terms" required>
+            </p>
+            </p>
             <button type="submit">S'inscrire</button>
         </form>
     <?php endif; ?>

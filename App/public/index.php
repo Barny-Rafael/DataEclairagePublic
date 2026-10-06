@@ -6,6 +6,7 @@ use App\Controller\AuthController;
 use App\Controller\LegalController;
 use App\Controller\SitemapController;
 use App\Controller\AccountController;
+use App\Controller\TermsController;
 
 $racine = dirname(__DIR__);                    // on est dans public/, le projet est un cran au-dessus
 
@@ -25,7 +26,8 @@ $controleurs = [
     AuthController::class => fn() => new AuthController($repository),
     LegalController::class => fn() => new LegalController(),
     SitemapController::class => fn() => new SitemapController(),
-    AccountController::class => fn() => new AccountController()
+    AccountController::class => fn() => new AccountController(),
+    TermsController::class => fn() => new TermsController()
 ];
 
 $routes = require $racine . '/config/routes.php';

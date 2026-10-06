@@ -7,5 +7,6 @@ require '../views/partials/header.php';
     <p>Bonjour <strong><?= htmlspecialchars($utilisateur['email']) ?></strong>.</p>
     <p><a href="/logout">Se déconnecter</a></p>
     <p><a href="/forgot">Changer de mot de passe</a></p>
+    <p><a href="/verification">Supprimer mon compte</a><p>
 
 <?php require '../views/partials/footer.php'; ?>
