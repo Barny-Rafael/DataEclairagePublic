@@ -38,12 +38,12 @@ foreach ($routes as [$routeMethode, $routeChemin, [$classe, $action]]) {
     }
 }
 
-$utilisateur = $_SESSION['utilisateur'] ?? null;
 http_response_code(404);            // aucune route n'a correspondu
-$titre = 'Page introuvable';
+$utilisateur = $_SESSION['utilisateur'] ?? null;
 $description = 'La page demandée n\'existe pas.';
 render('404', [
     'chemin' => $chemin,
-    'titre' => $titre,
-    'description' => $description
+    'titre' => 'Page introuvable',
+    'description' => $description,
+    'utilisateur' => $utilisateur
 ]);
