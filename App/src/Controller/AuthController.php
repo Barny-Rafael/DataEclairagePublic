@@ -98,7 +98,7 @@ final class AuthController
         if($token === null){
             $token = $_GET['token'] ?? '';
 
-            if($this->repository->findUserIdByToken(hash('sha256', $token)) === null){
+            if ($this->repository->findEmailByToken(hash('sha256', $token)) === null) {
                 $erreur = 'Lien invalide ou expiré';
                 $token = '';
             }
@@ -117,9 +117,9 @@ final class AuthController
         $password = $_POST['password'] ?? '';
         $confirmation = $_POST['password_confirmation'] ?? '';
 
-        $userId = $this->repository->findUserIdByToken(hash('sha256', $token));
+        $email = $this->repository->findEmailByToken(hash('sha256', $token));
 
-        if($userId === null){
+        if ($email === null) {
             $this->resetform('Lien invalide ou expiré.', '');
             return;
         }
@@ -134,8 +134,8 @@ final class AuthController
             return;
         }
 
-        $this->repository->updatePassword($userId, password_hash($password, PASSWORD_DEFAULT));
-        $this->repository->deleteResetTokens($userId);
+        $this->repository->updatePassword($email, password_hash($password, PASSWORD_DEFAULT));
+        $this->repository->deleteResetTokens($email);
 
         header('Location: /login');
         exit;
@@ -168,9 +168,8 @@ final class AuthController
                 $tokenHash = hash('sha256', $token);
                 $expiresAt = date('Y-m-d H:i:s', time() + 600);
 
-                $this->repository->deleteResetTokens($user->id);
-                $this->repository->createResetToken($user->id, $tokenHash, $expiresAt);
-
+                $this->repository->deleteResetTokens($user->email);
+                $this->repository->createResetToken($user->email, $tokenHash, $expiresAt);
 	            $link = 'https://data-eclairagepublic.alwaysdata.net/reset?token=' . $token;
 	            $this->sendResetMail($user->email, $link);
             }
