@@ -13,7 +13,11 @@ return [
     ['GET',  '/register', [AuthController::class, 'registerForm']],
     ['POST', '/register', [AuthController::class, 'register']],
     ['GET',  '/logout', [AuthController::class, 'logout']],
-    ['GET', '/legal', [LegalController::class, 'legal']],
-    ['GET', '/sitemap', [SitemapController::class, 'sitemap']],
-    ['GET', '/account', [AccountController::class, 'account']]
+    ['GET',  '/forgot', [AuthController::class, 'forgotForm']],
+    ['POST', '/forgot', [AuthController::class, 'forgot']],
+    ['GET',  '/reset', [AuthController::class, 'resetForm']],
+    ['POST', '/reset', [AuthController::class, 'reset']],
+    ['GET',  '/legal', [LegalController::class, 'legal']],
+    ['GET',  '/sitemap', [SitemapController::class, 'sitemap']],
+	['GET', '/account', [AccountController::class, 'account']],
 ];
