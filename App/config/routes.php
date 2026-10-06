@@ -4,6 +4,7 @@ use App\Controller\HomeController;
 use App\Controller\AuthController;
 use App\Controller\LegalController;
 use App\Controller\SitemapController;
+use App\Controller\AccountController;
 
 return [
     ['GET',  '/', [HomeController::class, 'index']],
