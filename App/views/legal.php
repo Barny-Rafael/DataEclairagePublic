@@ -2,6 +2,7 @@
 // ... HTML propre à la page ...
 require '../views/partials/header.php';
 ?>
+<main>
     <h1>Mentions légales</h1>
 
         <section>
@@ -24,5 +25,5 @@ require '../views/partials/header.php';
             <h2>Conditions générales d'utilisation</h2>
             <p>Nos conditions générales d'utilisation sont écrites <a href="/terms">ici</a>.</p>
         </section>
-
+</main>
 <?php require '../views/partials/footer.php'; ?>

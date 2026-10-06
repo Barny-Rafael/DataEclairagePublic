@@ -1,5 +1,5 @@
 <?php require '../views/partials/header.php'; ?>
-
+<main>
 	<h1><?= htmlspecialchars($titre) ?></h1>
 
 <?php if (!empty($erreur)): ?>
@@ -17,5 +17,5 @@
 		</p>
 		<button type="submit">Envoyer le lien</button>
 	</form>
-
+</main>
 <?php require '../views/partials/footer.php'; ?>
