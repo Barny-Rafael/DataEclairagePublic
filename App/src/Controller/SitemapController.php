@@ -16,6 +16,7 @@ final class SitemapController
             $liens[] = ['/register', 'Inscription'];
         } else {
             $liens[] = ['/account', 'Mon compte'];
+            $liens[] = ['/lampadaires', 'Notre base de données'];
         }
         $liens[] = ['/legal', 'Mentions légales'];
         $liens[] = ['/terms', 'Conditions générales d\'utilisation'];
