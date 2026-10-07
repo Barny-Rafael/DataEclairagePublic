@@ -6,6 +6,7 @@ use App\Controller\LegalController;
 use App\Controller\SitemapController;
 use App\Controller\AccountController;
 use App\Controller\TermsController;
+use App\Controller\LampadaireController;
 
 return [
     ['GET',  '/', [HomeController::class, 'index']],
@@ -25,5 +26,6 @@ return [
     ['GET',  '/legal', [LegalController::class, 'legal']],
     ['GET',  '/sitemap', [SitemapController::class, 'sitemap']],
 	['GET', '/account', [AccountController::class, 'account']],
-    ['GET', '/terms', [TermsController::class, 'terms']]
+    ['GET', '/terms', [TermsController::class, 'terms']],
+    ['GET', '/lampadaires', [LampadaireController::class, 'liste']],
 ];
