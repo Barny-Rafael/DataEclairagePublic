@@ -15,6 +15,6 @@
         <?php if (!isset($utilisateur)): ?>
             <p class="droite"><a href="/login">Connexion</a> | <a href="/register">Inscription</a></p>
         <?php else: ?>
-            <p class="droite"><a href="/logout">Déconnexion</a> | <a href="/account">Mon compte</a></p>
+            <p class="droite"><a href="/logout">Déconnexion</a> | <a href="/account">Mon compte</a> | <a href="/lampadaires">Notre base de données</a></p>
         <?php endif; ?>
     </header>
