@@ -12,10 +12,11 @@ use App\Controller\LampadaireController;
 
 $racine = dirname(__DIR__);                    // on est dans public/, le projet est un cran au-dessus
 
-require $racine . '/src/Core/pagination.php';
+
 require $racine . '/autoload.php';
 require $racine . '/src/Core/render.php';
 require $racine . '/src/Core/db.php';
+require $racine . '/src/Core/pagination.php';
 session_start();                               // une seule fois, pour tout le site
 
 $chemin = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';   // "/login?x=1" -> "/login"

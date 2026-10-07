@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/env.php';
 
+
 chargerEnv('../.env');
 
 $dsn = env('DB_DSN') ?? throw new RuntimeException('DB_DSN manquant dans .env');
