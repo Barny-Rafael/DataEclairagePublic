@@ -13,7 +13,7 @@ require '../views/partials/header.php';
             <?php else: ?>
             <li><a href="/account">Mon compte</a></li>
             <?php endif; ?>
-            <li><a href="/mentions-legales">Mentions légales</a></li>
+            <li><a href="/legal">Mentions légales</a></li>
             <li><a href="/terms">Conditions générales d'utilisation</a></li>
         </ul>
     </nav>
