@@ -1,9 +1,6 @@
 # Framework Data Eclairage Public
 
-## Bienvenue
-
-Bonjour, Bonsoir,
-Bienvenue sur notre dépôt Github de notre Framework MVC PHP pour un site web ! Libre à vous de l'utiliser comme bon vous semble mais, avant ça, veuillez lire la suite de ce README.
+Bienvenue sur notre dépôt Github de notre Framework MVC PHP 8.2 pour un site web ! Libre à vous de l'utiliser comme bon vous semble mais, avant ça, veuillez lire la suite de ce README.
 
 Source : https://github.com/hadeli/MVC-Explication
 
