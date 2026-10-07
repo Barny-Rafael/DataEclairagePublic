@@ -2,9 +2,14 @@
 // ... HTML propre à la page ...
 require '../views/partials/header.php';
 ?>
+<main>
     <h1><?= htmlspecialchars($titre) ?></h1>
 
     <?php if ($erreur !== null): ?>
+        <p><?= htmlspecialchars($erreur) ?></p>
+    <?php endif; ?>
+
+    <?php if ($succes !== false): ?>
         <p><?= htmlspecialchars($erreur) ?></p>
     <?php endif; ?>
 
@@ -15,5 +20,5 @@ require '../views/partials/header.php';
         </p>
         <button type="submit">Supprimer son compte</button>
     </form>
-
+</main>
 <?php require '../views/partials/footer.php'; ?>

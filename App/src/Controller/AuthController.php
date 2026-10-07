@@ -11,10 +11,14 @@ final class AuthController
 
     public function loginForm(string $erreur = null, string $email = ''): void
     {
+        $titre = 'Connexion';
+        $description = 'Connectez-vous à votre compte utilisateur Data Éclairage Public.';
+
         render('login', [
-            'titre'   => 'Connexion',
+            'titre' => $titre,
             'erreur' => $erreur,
-            'email'   => $email
+            'email' => $email,
+            'description' => $description
         ]);
     }
 
@@ -47,11 +51,15 @@ final class AuthController
 
     public function registerForm(array $erreurs = [], bool $succes = false, string $email = ''): void
     {
+        $titre = 'Inscription';
+        $description = 'Créez un compte pour accéder aux services de Data Éclairage Public.';
+
         render('register', [
-            'titre'   => 'Inscription',
+            'titre' => $titre,
             'erreurs' => $erreurs,
-            'succes'  => $succes,
-            'email'   => $email
+            'succes' => $succes,
+            'email' => $email,
+            'description' => $description
         ]);
     }
 
@@ -72,10 +80,6 @@ final class AuthController
         }
         if ($password !== $confirmation) {
             $erreurs[] = 'Les deux mots de passe ne correspondent pas.';
-        }
-
-        if (!$terms) {
-            $erreurs[] = 'Vous devez accepter les conditions générales d\'utilisation.';
         }
 
         // Vérifie que l'email n'est pas déjà utilisé
@@ -103,47 +107,53 @@ final class AuthController
 		mail($email, $subject, $body, $headers);
 	}
 
-    public function deleteform(string $erreur = null, string $token = null, bool $succes = false, string $email = ''): void
+    public function deleteForm(string $erreur = null, string $token = null, bool $succes = false): void
     {
-        $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $token = $_GET['token'] ?? $token;
+        $titre = 'Suppression de Compte';
+        $description = 'Confirmez la suppression de votre compte Data Éclairage Public.';
         render('delete', [
-            'titre'  => 'Suppression de Compte',
-            'utilisateur' => $utilisateur,
+            'titre' => $titre,
             'erreur' => $erreur,
             'token'  => $token,
             'succes'  => $succes,
-            'email'   => $email
+            'description' => $description
         ]);
     }
 
     public function delete(): void
     {
-        $email = trim($_POST['email'] ?? '');
         $token = $_POST['token'] ?? '';
-        $erreur='';
+       
+        $erreur=null;
         $succes=false;
-        if ($this->repository->findEmailByDeleteToken(hash('sha256', $token)) === null){
-			    $erreur = "Lien invalide ou expiré";
-		    }
+
+        $email = $this->repository->findEmailByDeleteToken(hash('sha256', $token));
+        if ($email === null){
+			$erreur = "Lien invalide ou expiré";
+		}
         else {
-            $utilisateur = $_SESSION['utilisateur'] ?? null;
-            $this->repository->deleteUser($utilisateur->email);
-            $this->repository->deleteDeleteTokens($email);
+            $this->repository->deleteUser($email);
             $succes=true;
             session_destroy();
+            
         }
-        $this->deleteForm($erreur, $token, $succes, $email);
+        $this->deleteForm($erreur, $token, $succes);
     }
 
     public function verificationForm(string $erreur = null, bool $succes = false, string $email = ''): void
     {
         $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $titre = 'Vérification pour suppression de compte';
+        $description = 'Page de vérification pour la demande de suppression de votre compte.';
+
         render('verification', [
-            'titre' => 'Vérification pour suppression de compte',
+            'titre' => $titre,
             'utilisateur' => $utilisateur,
             'erreur' => $erreur,
             'succes'  => $succes,
-            'email'   => $email
+            'email'   => $email,
+            'description' => $description,
         ]);
     }
 
@@ -152,7 +162,6 @@ final class AuthController
         $email = trim($_POST['email'] ?? '');
         $succes = false;
         $erreur = '';
-        $message = '';
 
         //Vérification de l'existence du mail dans le bdd
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -167,18 +176,15 @@ final class AuthController
 
                 $this->repository->deleteDeleteTokens($email);
                 $this->repository->createDeleteToken($email, $tokenHash, $expiresAt);
-	              $link = 'https://data-eclairagepublic.alwaysdata.net/delete?token=' . $token;
+	            $link = 'https://data-eclairagepublic.alwaysdata.net/delete?token=' . $token;
                 $subject = 'Suppression de compte';
                 $body = "Cliquez sur ce lien pour supprimer votre compte:\n\n$link\n\nCeci est un message automatique, veuillez ne pas y répondre.";
-	              $this->sendMail($utilisateur->email, $subject, $body);
+	            $this->sendMail($utilisateur->email, $subject, $body);
             }
 
             $succes = true;
-
-            $message = 'Si ce compte existe, un email a été envoyé.';
-
         }
-	    $this->verificationForm($erreur, $message, $email);
+	    $this->verificationForm($erreur, $succes, $email);
     }
   
     public function resetform(?string $erreur = null, ?string $token = null): void
@@ -193,10 +199,13 @@ final class AuthController
         }
 	    }
 
+        $titre = 'Nouveau mot de passe';
+        $description = 'Saisissez votre nouveau mot de passe pour réinitialiser l’accès à votre compte.';
         render('reset', [
-            'titre'  => 'Nouveau mot de passe',
+            'titre' => $titre,
             'erreur' => $erreur,
             'token'  => $token,
+            'description' => $description,
         ]);
     }
 
@@ -232,11 +241,14 @@ final class AuthController
 
     public function forgotForm(?string $erreur = null, string $message = '', string $email = ''): void
     {
+        $titre = 'Forgot password';
+        $description = 'Demandez la réinitialisation de votre mot de passe Data Éclairage Public.';
 	    render('forgot', [
-		    'titre'   => 'Forgot password',
-		    'erreur'  => $erreur,
+            'titre' => $titre,
+            'erreur'  => $erreur,
 		    'message' => $message,
 		    'email'   => $email,
+            'description' => $description,
 	    ]);
     }
   

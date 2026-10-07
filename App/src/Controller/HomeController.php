@@ -8,9 +8,11 @@ final class HomeController
     {
         $titre = 'Accueil';
         $utilisateur = $_SESSION['utilisateur'] ?? null;
+        $description = 'Bienvenue sur Data Éclairage Public, plateforme de consultation des données sur les éclairages publiques.';
         render('home', [
             'titre' => $titre,
-            'utilisateur' => $utilisateur
+            'utilisateur' => $utilisateur,
+            'description' => $description,
         ]);
     }
 }
