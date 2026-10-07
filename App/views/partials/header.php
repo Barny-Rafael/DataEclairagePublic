@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="<?= htmlspecialchars($description ?? 'Site de consultation et gestion de données éclairage public') ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title><?= htmlspecialchars($titre) ?></title>
-    <link rel="stylesheet" href="/CSS/CSS_Basic_All_Pages.css">
+    <link rel="stylesheet" href="/CSS_Basic_All_Pages.css">
 </head>
 <body>
     <header>
