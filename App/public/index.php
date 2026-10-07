@@ -7,9 +7,12 @@ use App\Controller\LegalController;
 use App\Controller\SitemapController;
 use App\Controller\AccountController;
 use App\Controller\TermsController;
+use App\Model\LampadaireRepository;
+use App\Controller\LampadaireController;
 
 $racine = dirname(__DIR__);                    // on est dans public/, le projet est un cran au-dessus
 
+require $racine . '/src/Core/pagination.php';
 require $racine . '/autoload.php';
 require $racine . '/src/Core/render.php';
 require $racine . '/src/Core/db.php';
@@ -21,13 +24,15 @@ $chemin = rtrim($chemin, '/') ?: '/';                                // "/login/
 $methode = $_SERVER['REQUEST_METHOD'];
 
 $repository = new UserRepository($pdo);
+$lampadaireRepository = new LampadaireRepository($pdo);
 $controleurs = [
     HomeController::class => fn() => new HomeController(),
     AuthController::class => fn() => new AuthController($repository),
     LegalController::class => fn() => new LegalController(),
     SitemapController::class => fn() => new SitemapController(),
     AccountController::class => fn() => new AccountController(),
-    TermsController::class => fn() => new TermsController()
+    TermsController::class => fn() => new TermsController(),
+    LampadaireController::class => fn() => new LampadaireController($lampadaireRepository),
 ];
 
 $routes = require $racine . '/config/routes.php';
